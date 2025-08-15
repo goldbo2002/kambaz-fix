@@ -23,6 +23,11 @@ export default function Dashboard() {
         <Link to="/Assignments">Assignments</Link>
         <a href="/Labs/Lab1">Back to Lab 1</a>
 
+<div>
+  <h2>Welcome to the Dashboard</h2>
+  <Link to="/profile">Go to Profile</Link>
+</div>
+
       </nav>
     </div>
   );

@@ -1,7 +1,17 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '../lib/api';
 
-const initialState = {
+interface User {
+  username: string;
+  [key: string]: any;
+}
+
+interface AuthState {
+  user: User | null;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+}
+
+const initialState: AuthState = {
   user: null,
   status: 'idle',
 };
@@ -14,8 +24,17 @@ export const verifySession = createAsyncThunk('auth/verifySession', async () => 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {}, // <- required by RTK
-  extraReducers: (builder) => {
+  reducers: {
+    login(state, action: PayloadAction<User>) {
+      state.user = action.payload;
+      state.status = 'succeeded';
+    },
+    logout(state) {
+      state.user = null;
+      state.status = 'idle';
+    },
+  },
+  extraReducers(builder) {
     builder
       .addCase(verifySession.pending, (state) => {
         state.status = 'loading';
@@ -31,4 +50,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;
