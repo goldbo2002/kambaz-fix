@@ -15,8 +15,12 @@ export default function Lab1() {
       <div style={{ marginBottom: 24 }}>
         <a href="#/Labs/Lab1">Lab 1</a>{" | "}
         <a href="#/Labs/Lab2">Lab 2</a>{" | "}
-        <a href="#/Kambaz">Kambaz App</a>{" | "}
-        <a id="wd-github" href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+        <a href="#/Labs/Lab3">Lab 3</a> |{" "}
+        <a href="#/Labs/Lab4">Lab 4</a> |{" "}
+        <a href="#/Labs/Lab5">Lab 5</a> |{" "}
+        <a href="#/Labs/Lab6">Lab 6</a> |{" "}
+        <a href="https://kambaznew.netlify.app/">Kambaz App</a>{" | "}
+        <a id="https://github.com/goldbo2002/kambaz-fix.git" href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
           GitHub repo
         </a>
       </div>
