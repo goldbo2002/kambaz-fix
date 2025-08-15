@@ -45,7 +45,7 @@ const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(verifySession.rejected, (state) => {
-        state.status = 'failed';
+        state.status = 'idle';
         state.user = null;
       });
   },
