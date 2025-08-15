@@ -11,7 +11,9 @@ import { useSelector } from "react-redux";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
-
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
   return (
     <Routes>
       <Route path="/" element={user ? <Dashboard /> : <Navigate to="/signin" />} />

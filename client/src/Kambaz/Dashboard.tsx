@@ -23,7 +23,7 @@ export default function Dashboard() {
         <Link to="/Labs/Lab6">Lab6</Link> •
         <Link to="/Courses">Courses</Link> •
         <Link to="/Assignments">Assignments</Link>
-        <a href="/Labs/Lab1">Back to Lab 1</a>
+        <Link to="/Labs/Lab1">Back to Lab 1</Link>
 
 <div>
   
