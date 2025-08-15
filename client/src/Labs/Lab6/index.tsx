@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-// User data type
+// User data
 type User = {
   username: string;
   password: string;
@@ -11,28 +11,28 @@ type User = {
   lastName?: string;
 };
 
-// Simulated user DB (just for demo)
+// Simulated user DB 
 const demoUsers: User[] = [
   { username: "alice", password: "123", role: "admin", email: "alice@example.com", firstName: "Alice", lastName: "Liddell" },
   { username: "bob", password: "password", role: "student", email: "bob@example.com", firstName: "Bob", lastName: "Builder" },
 ];
 
-// Main Lab 6 component
+
 export default function Lab6() {
   // Auth state
   const [users, setUsers] = useState<User[]>(demoUsers);
   const [loggedIn, setLoggedIn] = useState<User | null>(null);
   const [view, setView] = useState<"signin" | "signup" | "profile">("signin");
 
-  // Form state
+ 
   const [form, setForm] = useState<User>({ username: "", password: "" });
 
-  // Handle input change
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Signin logic (local only)
+
   const handleSignin = () => {
     const user = users.find(
       u => u.username === form.username && u.password === form.password
@@ -46,7 +46,7 @@ export default function Lab6() {
   };
 
 
-  // Signup logic (local only)
+
   const handleSignup = () => {
     if (users.some(u => u.username === form.username)) {
       alert("Username already exists.");
@@ -58,7 +58,7 @@ export default function Lab6() {
     setView("profile");
   };
 
-  // Update profile logic (local only)
+  // Update profile logic
   const handleUpdate = () => {
     setUsers(users.map(u =>
       u.username === loggedIn?.username ? { ...loggedIn, ...form } : u
@@ -67,14 +67,14 @@ export default function Lab6() {
     alert("Profile updated!");
   };
 
-  // Logout logic
+  // Logout 
   const handleLogout = () => {
     setLoggedIn(null);
     setForm({ username: "", password: "" });
     setView("signin");
   };
 
-  // UI for signin form
+  // UI 
   function SigninForm() {
     return (
       <div style={{ marginTop: 16 }}>
@@ -102,7 +102,7 @@ export default function Lab6() {
     );
   }
 
-  // UI for signup form
+  // UI 
   function SignupForm() {
     return (
       <div style={{ marginTop: 16 }}>
@@ -130,7 +130,7 @@ export default function Lab6() {
     );
   }
 
-  // UI for profile update
+  // UI 
   function ProfileForm() {
     return (
       <div style={{ marginTop: 16 }}>
@@ -158,7 +158,7 @@ export default function Lab6() {
     );
   }
 
-  // Set form to current user when switching to profile view
+  // set
   React.useEffect(() => {
     if (view === "profile" && loggedIn) {
       setForm(loggedIn);

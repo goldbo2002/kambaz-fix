@@ -40,7 +40,7 @@ export default function Lab1() {
         <p>This is the third paragraph.</p>
       </div>
 
-      {/* ordered lists vs unordered */}
+      {/* ordered lists and unordered */}
       <div>
         <h4>Ordered List</h4>
         <ol>
@@ -63,7 +63,7 @@ export default function Lab1() {
         </ul>
       </div>
 
-      {/* table Q3–Q10 */}
+      {/* table */}
       <div style={{ marginTop: 16 }}>
         <h4>Table – Quiz Scores (Q3–Q10)</h4>
         <table border={1} width="100%">
@@ -76,7 +76,7 @@ export default function Lab1() {
             </tr>
           </thead>
           <tbody>
-            {/* table rows */}
+            {/* rows */}
             <tr><td>Q1</td><td>HTML</td><td>6/01/25</td><td>90</td></tr>
             <tr><td>Q2</td><td>CSS</td><td>6/02/25</td><td>92</td></tr>
             <tr><td>Q3</td><td>React</td><td>6/03/25</td><td>95</td></tr>
@@ -152,7 +152,7 @@ export default function Lab1() {
           </select>
           <br />
 
-          {/* other HTML types the rubric/doc calls out */}
+          {/* html for rubric */}
           <label>Email: <input type="email" placeholder="jdoe@somewhere.com" /></label><br />
           <label>Starting salary: <input type="number" defaultValue={100000} placeholder="1000" /></label><br />
           <label>Rating: <input type="range" max="5" /></label><br />

@@ -1,7 +1,5 @@
 /* src/Labs/Lab2/index.css */
-/* Keep it literal and easy to grade. */
 
-/* fixed breakpoint badge (top-left) */
 .breakpoint-badge {
   position: fixed;
   top: 10px;
@@ -14,8 +12,8 @@
   z-index: 2000;
 }
 
-/* ---------- Selectors & Colors ---------- */
-/* IDs */
+
+
 #whiteOnRed {
   color: white;
   background: red;
@@ -49,12 +47,12 @@
   padding: 2px 4px;
 }
 
-/* Foreground helpers */
+
 .blueHeading { color: blue; }
 .redText { color: red; }
 .greenText { color: green; }
 
-/* Background helpers */
+
 .whiteOnBlueHeading {
   color: white;
   background: blue;
@@ -70,7 +68,7 @@
   background: green;
 }
 
-/* ---------- Borders, Margins, Padding ---------- */
+/* borders margins */
 .fatRedBorder { border: 5px solid red; }
 .thinBlueDashed { border: 1px dashed blue; }
 
@@ -114,7 +112,7 @@
   padding: 8px;
 }
 
-/* for rounded demo boxes + baseline size */
+
 .demoBox {
   width: 260px;
   padding: 8px;
@@ -129,18 +127,18 @@
   border-top-right-radius: 0;
 }
 
-/* ---------- Dimensions ---------- */
+/* dimensions */
 .wideYellow {
   background: yellow;
   height: 100px;
-  width: 200px; /* wider than tall */
+  width: 200px; 
   border: 2px solid #333;
 }
 .tallBlue {
   background: blue;
   color: white;
   width: 100px;
-  height: 200px; /* taller than wide */
+  height: 200px; 
   border: 2px solid #333;
 }
 .redSquare {
@@ -151,7 +149,7 @@
   color: white;
 }
 
-/* ---------- Positioning ---------- */
+
 .relYellow {
   background: yellow;
   border: 2px solid #333;
@@ -168,7 +166,7 @@
   left: 10px;
 }
 
-/* absolute rectangles with stage */
+/* rectangle */
 .positionStage {
   position: relative;
   height: 200px;
@@ -194,18 +192,18 @@
 }
 .positionStage .landscape {
   width: 150px; height: 90px;
-  background: #0d6efd; /* blue */
+  background: #0d6efd; 
   top: 50px; left: 60px;
-  z-index: 3; /* on top */
+  z-index: 3; 
 }
 .positionStage .square {
   width: 110px; height: 110px;
-  background: #dc3545; /* red */
+  background: #dc3545; 
   top: 40px; left: 120px;
   z-index: 2;
 }
 
-/* Fixed element that doesn't scroll */
+
 .fixedBlue {
   position: fixed;
   right: 12px;
@@ -217,7 +215,7 @@
   z-index: 1500;
 }
 
-/* ---------- Floats, Grid, Flex ---------- */
+
 .floatRow .floatA,
 .floatRow .floatB,
 .floatRow .floatC {
@@ -239,7 +237,7 @@
   border: 1px solid #ccc;
 }
 
-/* Grid demo */
+
 .gridDemo {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -252,7 +250,7 @@
   text-align: center;
 }
 
-/* Flex demo */
+
 .flexCols {
   display: flex;
   gap: 8px;
@@ -265,7 +263,7 @@
   text-align: center;
 }
 
-/* ---------- Icons row ---------- */
+
 .iconsRow {
   font-size: 26px;
   display: flex;

@@ -1,3 +1,5 @@
+//just my dashboard...
+
 import React, { useEffect } from "react";
 import { useAppDispatch } from '../redux/store';
 import { verifySession } from "../redux/authSlice";
@@ -24,7 +26,11 @@ export default function Dashboard() {
         <a href="/Labs/Lab1">Back to Lab 1</a>
 
 <div>
-  <h2>Welcome to the Dashboard</h2>
+  
+  <a href="https://github.com/goldbo2002/kambaz-fix.git" target="_blank" rel="noopener noreferrer">
+  View GitHub Repo
+</a>
+
   <Link to="/profile">Go to Profile</Link>
 </div>
 

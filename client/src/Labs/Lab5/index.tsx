@@ -18,7 +18,7 @@ function Section({ title, children }: PropsWithChildren<{ title: string }>) {
 }
 
 
-// Small child component for “Parameterizing Components”
+// Small child 
 function ColorBox({ label, bg }: { label: string; bg: string }) {
   return (
     <div style={{ display: "inline-block", marginRight: 8, marginBottom: 8 }}>
@@ -81,7 +81,7 @@ export default function Lab3() {
   const location = useLocation();
   const params = useParams<{ a?: string; b?: string }>();
 
-  // ---------- Variables and constants ----------
+ 
   const x = 1;
   let y = 2;
   const s: string = "hello";
@@ -94,7 +94,7 @@ export default function Lab3() {
   const isLoggedIn = true;
   const isAdmin = false;
 
-  // If/else + ternary + conditional output
+  // If/else 
   let greet = "Welcome, guest.";
   if (isLoggedIn) {
     greet = "Welcome back!";
@@ -104,25 +104,24 @@ export default function Lab3() {
   const roleMsg = isAdmin ? "You are an admin." : "You are a regular user.";
   const showSecret = isAdmin && <div>Secret Panel</div>;
 
-  // Welcome If Else + Please login inline
   const username = "alice";
   const welcome = username ? `Welcome ${username}!` : "Welcome!";
   const inlineLogin = isLoggedIn ? <b>Logged in</b> : <i>Please login</i>;
 
-  // Legacy ES5 function vs ES6 arrow + implied returns
+  // Legacy ES5 function vs ES6 arrow 
   function addES5(a: number, b: number) {
     return a + b;
   }
   const addES6 = (a: number, b: number) => {
     return a + b;
   };
-  const addImplied = (a: number, b: number) => a + b; // implied return
+  const addImplied = (a: number, b: number) => a + b; //  return
 
-  // Template literals
+  
   const who = "Bo";
   const tmpl = `Hi ${who}, ${2 + 3} is five.`;
 
-  // Arrays: push/pop/unshift/shift etc
+
   const original = [3, 1, 4];
   const withPush = [...original];
   withPush.push(1);

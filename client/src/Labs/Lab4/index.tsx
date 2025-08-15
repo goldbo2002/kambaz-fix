@@ -79,23 +79,22 @@ export default function Lab4() {
   };
 
   /* Component State */
-  // integer
+ 
   const [n, setN] = useState(0);
-  // boolean
+
   const [on, setOn] = useState(false);
-  // string
+  
   const [txt, setTxt] = useState("hello");
-  // date
+  
   const [dt, setDt] = useState<string>(new Date().toISOString().slice(0, 10));
-  // object
+ 
   const [profile, setProfile] = useState({ first: "Bo", last: "Gold" });
-  // array add/remove
+
   const [nums, setNums] = useState<number[]>([1, 2, 3]);
   const addElement = () => setNums((arr) => [...arr, Math.floor(Math.random() * 10)]);
   const deleteElement = (idx: number) =>
     setNums((arr) => arr.filter((_, i) => i !== idx));
-
-  /* Sharing State Between Components */
+// sharing
   function CounterView({
     value,
     onInc,
@@ -114,7 +113,7 @@ export default function Lab4() {
     );
   }
 
-  /* Application State  */
+  //state
   function HelloRedux() {
     const { state } = useStore();
     return <div>{state.message}</div>;
@@ -140,7 +139,7 @@ export default function Lab4() {
     );
   }
 
-  /*  Todo List updating */
+ //update list
   const [todos, setTodos] = useState<Todo[]>([
     { id: 1, title: "Read rubric" },
     { id: 2, title: "Finish Lab 4" },
@@ -203,7 +202,7 @@ export default function Lab4() {
           <div style={{ marginTop: 8 }}>{lastEventInfo}</div>
         </Section>
 
-        {/* Component State */}
+        {/* Component */}
         <Section title="Component State — Integer / Boolean / String / Date / Object">
           <div style={{ display: "grid", gap: 8, maxWidth: 520 }}>
             <div>
@@ -264,7 +263,7 @@ export default function Lab4() {
           <CounterView value={n} onInc={() => setN((v) => v + 1)} onDec={() => setN((v) => v - 1)} />
         </Section>
 
-        {/*  Application State (Redux-like)  */}
+        {/*  Application like redux */}
         <Section title='Application State — "Hello World Redux" component'>
           <HelloRedux />
         </Section>

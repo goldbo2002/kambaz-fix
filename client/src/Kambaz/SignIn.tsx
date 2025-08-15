@@ -1,3 +1,5 @@
+// user and password inputs, take you to the dash after login
+
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";

@@ -1,3 +1,5 @@
+//CRUD lab
+
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { fetchAssignments, createAssignment } from "../redux/assignmentsSlice";
@@ -14,6 +16,8 @@ const list = useSelector((state: RootState) => state.assignments.list) as Assign
   useEffect(() => {
     dispatch(fetchAssignments());
   }, [dispatch]);
+
+
 
   return (
     <div>

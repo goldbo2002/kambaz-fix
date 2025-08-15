@@ -14,7 +14,7 @@ import {
 export default function Lab2() {
   return (
     <div id="wd-lab2" className="container my-4">
-      {/* little fixed black breakpoint badge (top-left) */}
+  
       <div id="wd-breakpoint-badge" className="breakpoint-badge">
         <span className="d-inline d-sm-none">XS</span>
         <span className="d-none d-sm-inline d-md-none">SM</span>
@@ -25,17 +25,17 @@ export default function Lab2() {
 
       <h2 className="mb-3">Lab 2</h2>
 
-      {/* ---------------- CSS: selectors & colors ---------------- */}
+      {/* css  */}
       <section className="mb-4">
         <h3>CSS — Selectors & Colors</h3>
 
-        {/* ID selectors */}
+        {/* ID */}
         <p id="whiteOnRed">This paragraph is white on red (ID selector).</p>
         <p id="blackOnYellow">
           This paragraph is black on yellow (ID selector).
         </p>
 
-        {/* Class selectors */}
+        {/* class */}
         <p className="blueOnYellow">
           This paragraph is blue on yellow (class selector).
         </p>
@@ -49,12 +49,12 @@ export default function Lab2() {
           <span className="smallSpan">small blue on yellow span</span>.
         </div>
 
-        {/* Foreground color helpers */}
+
         <h4 className="blueHeading mt-3">Blue on white heading</h4>
         <p className="redText">Red on white text</p>
         <p className="greenText">Green on white text</p>
 
-        {/* Background helpers */}
+
         <h4 className="whiteOnBlueHeading">White on blue heading</h4>
         <p className="blackOnRed">Black on red paragraph</p>
         <span className="whiteOnGreen p-1 d-inline-block">
@@ -62,7 +62,7 @@ export default function Lab2() {
         </span>
       </section>
 
-      {/* ---------------- CSS: borders / margins / padding ---------------- */}
+ 
       <section className="mb-4">
         <h3>CSS — Borders, Margins, Padding</h3>
 
@@ -79,7 +79,7 @@ export default function Lab2() {
         <div className="bigMargins mb-2">Big margins all around</div>
       </section>
 
-      {/* ---------------- CSS: corners & dimensions ---------------- */}
+
       <section className="mb-4">
         <h3>CSS — Corners & Dimensions</h3>
 
@@ -97,7 +97,6 @@ export default function Lab2() {
         <div className="redSquare demoBox mb-2">Red square</div>
       </section>
 
-      {/* ---------------- CSS: positioning & z-index ---------------- */}
       <section className="mb-4">
         <h3>CSS — Positioning</h3>
 
@@ -117,7 +116,7 @@ export default function Lab2() {
         <div className="fixedBlue">Fixed blue rectangle</div>
       </section>
 
-      {/* ---------------- CSS: floats, grid, flex ---------------- */}
+      {/* float grid and flex */}
       <section className="mb-4">
         <h3>CSS — Floats, Grid, Flex</h3>
 
@@ -157,7 +156,7 @@ export default function Lab2() {
         </div>
       </section>
 
-      {/* ---------------- React Icons sample ---------------- */}
+      {/* icons */}
       <section className="mb-4">
         <h3>React Icons — sample</h3>
         <div className="iconsRow">
@@ -170,11 +169,11 @@ export default function Lab2() {
         </div>
       </section>
 
-      {/* ---------------- Bootstrap: grids & responsive ---------------- */}
+   
       <section className="mb-4">
         <h3>Bootstrap — Containers & Grids</h3>
 
-        {/* left/right halves */}
+        {/* left/right */}
         <div className="row mb-2">
           <div className="col-md-6 bg-light p-2">Left half</div>
           <div className="col-md-6 bg-white p-2">Right half</div>
@@ -186,13 +185,13 @@ export default function Lab2() {
           <div className="col-md-8 bg-light p-2">Two thirds</div>
         </div>
 
-        {/* side/main */}
+
         <div className="row mb-2">
           <div className="col-md-3 bg-light p-2">Side</div>
           <div className="col-md-9 bg-white p-2">Main content</div>
         </div>
 
-        {/* Responsive A/B/C/D */}
+        {/* Responsive */}
         <div className="row g-2 mb-2">
           <div className="col-12 col-sm-6 col-md-3">
             <div className="bg-secondary text-white p-2 text-center">A</div>
@@ -218,7 +217,7 @@ export default function Lab2() {
         </div>
       </section>
 
-      {/* ---------------- Bootstrap: tables ---------------- */}
+      {/* tables*/}
       <section className="mb-4">
         <h3>Bootstrap — Tables</h3>
         <div className="table-responsive mb-2">
@@ -250,7 +249,7 @@ export default function Lab2() {
           </table>
         </div>
 
-        {/* long columns responsive scroll */}
+        {/* long columns scroll */}
         <div className="table-responsive">
           <table className="table table-bordered">
             <thead className="table-light">
@@ -278,7 +277,7 @@ export default function Lab2() {
         </div>
       </section>
 
-      {/* ---------------- Bootstrap: lists ---------------- */}
+      {/* -lists-- */}
       <section className="mb-4">
         <h3>Bootstrap — Lists</h3>
         <div className="row g-3">
@@ -322,11 +321,11 @@ export default function Lab2() {
         </div>
       </section>
 
-      {/* ---------------- Bootstrap: forms ---------------- */}
+      {/* forms */}
       <section className="mb-4">
         <h3>Bootstrap — Forms</h3>
 
-        {/* email + textarea */}
+        {/* email + text */}
         <div className="mb-3">
           <label className="form-label">Email</label>
           <input type="email" className="form-control" placeholder="you@somewhere.com" />
@@ -361,14 +360,14 @@ export default function Lab2() {
           <input type="range" className="form-range" id="customRange" />
         </div>
 
-        {/* input group / addons */}
+        {/* input group or add */}
         <div className="input-group mb-3">
           <span className="input-group-text">@</span>
           <input type="text" className="form-control" placeholder="username" />
           <span className="input-group-text">.com</span>
         </div>
 
-        {/* responsive form: horizontal on wide, vertical on narrow */}
+        
         <form>
           <div className="row g-2 align-items-center">
             <div className="col-12 col-md-4">
@@ -391,7 +390,6 @@ export default function Lab2() {
         </form>
       </section>
 
-      {/* ---------------- Bootstrap: tabs & pills ---------------- */}
       <section className="mb-4">
         <h3>Bootstrap — Tabs & Pills</h3>
 
@@ -419,7 +417,7 @@ export default function Lab2() {
         </ul>
       </section>
 
-      {/* ---------------- Bootstrap: card (Starship) ---------------- */}
+
       <section className="mb-5">
         <h3>Bootstrap — Card</h3>
         <div className="card" style={{ maxWidth: 360 }}>

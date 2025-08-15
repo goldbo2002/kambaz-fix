@@ -1,3 +1,5 @@
+//sign up, verify passcode. dash after sign up
+
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/authSlice";

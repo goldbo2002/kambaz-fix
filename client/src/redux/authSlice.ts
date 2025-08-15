@@ -1,3 +1,4 @@
+//login, logout, sessioon state. uses RTK
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '../lib/api';
 

@@ -17,7 +17,7 @@ function Section({ title, children }: PropsWithChildren<{ title: string }>) {
   );
 }
 
-// Small child component for “Parameterizing Components”
+
 function ColorBox({ label, bg }: { label: string; bg: string }) {
   return (
     <div style={{ display: "inline-block", marginRight: 8, marginBottom: 8 }}>
@@ -27,7 +27,7 @@ function ColorBox({ label, bg }: { label: string; bg: string }) {
   );
 }
 
-// TodoItem / TodoList for the React ToDo
+// TodoItem / TodoList 
 function TodoItem({
   todo,
   onToggle,
@@ -80,7 +80,7 @@ export default function Lab3() {
   const location = useLocation();
   const params = useParams<{ a?: string; b?: string }>();
 
-  // ---------- Variables and constants ----------
+
   const x = 1;
   let y = 2;
   const s: string = "hello";
@@ -93,7 +93,7 @@ export default function Lab3() {
   const isLoggedIn = true;
   const isAdmin = false;
 
-  // If/else + ternary + conditional output
+  // If/else 
   let greet = "Welcome, guest.";
   if (isLoggedIn) {
     greet = "Welcome back!";
@@ -103,32 +103,32 @@ export default function Lab3() {
   const roleMsg = isAdmin ? "You are an admin." : "You are a regular user.";
   const showSecret = isAdmin && <div>Secret Panel</div>;
 
-  // Welcome If Else + Please login inline
+  
   const username = "alice";
   const welcome = username ? `Welcome ${username}!` : "Welcome!";
   const inlineLogin = isLoggedIn ? <b>Logged in</b> : <i>Please login</i>;
 
-  // Legacy ES5 function vs ES6 arrow + implied returns
+  // Legacy ES5 function vs ES6 arrow 
   function addES5(a: number, b: number) {
     return a + b;
   }
   const addES6 = (a: number, b: number) => {
     return a + b;
   };
-  const addImplied = (a: number, b: number) => a + b; // implied return
+  const addImplied = (a: number, b: number) => a + b; // return
 
-  // Template literals
+  // Template 
   const who = "Bo";
   const tmpl = `Hi ${who}, ${2 + 3} is five.`;
 
-  // Arrays: push/pop/unshift/shift etc
+  // Arrays
   const original = [3, 1, 4];
   const withPush = [...original];
   withPush.push(1);
   const withPop = [...withPush];
   withPop.pop();
 
-  // index & length
+
   const first = original[0];
   const len = original.length;
 
@@ -138,14 +138,14 @@ export default function Lab3() {
     forLoopNums.push(i);
   }
 
-  // Map / Find / FindIndex / Filter
+
   const nums = [5, 8, 13, 21];
   const doubled = nums.map((z) => z * 2);
   const found = nums.find((z) => z > 10);
   const foundIdx = nums.findIndex((z) => z === 8);
   const filtered = nums.filter((z) => z % 2 === 1);
 
-  // JSON
+  
   const people = [
     { id: 1, name: "Alice", role: "Student" },
     { id: 2, name: "Bob", role: "TA" },
@@ -153,7 +153,7 @@ export default function Lab3() {
   const jsonStr = JSON.stringify(people);
   const parsed = JSON.parse(jsonStr);
 
-  // ToDo List
+  
   const [todos, setTodos] = useState<Todo[]>([
     { id: 1, title: "Read rubric" },
     { id: 2, title: "Finish Lab 3" },
@@ -163,7 +163,7 @@ export default function Lab3() {
   const addTodo = () => {
     const title = newTodo.trim();
     if (!title) return;
-    // Spread operator
+
     setTodos((prev) => [...prev, { id: Date.now(), title }]);
     setNewTodo("");
   };
@@ -174,7 +174,7 @@ export default function Lab3() {
     setTodos((prev) => prev.filter((t) => t.id !== id));
   };
 
-  // Destructuring function destructuring
+
   const user = { id: 99, first: "Bo", last: "Gold", city: "Boston" };
   const { first: firstName, last: lastName, ...rest } = user;
   const formatUser = ({ first, last }: { first: string; last: string }) => `${first} ${last}`;
@@ -185,7 +185,7 @@ export default function Lab3() {
   const dangerousClass = isDanger ? "danger" : "";
   const coolClass = isCool ? "blue" : "";
 
-  // Style attribute
+ 
   const yellowStyle = { background: "yellow", padding: 8 };
   const redStyle = { background: "red", color: "white", padding: 8 };
   const blueStyle = { background: "blue", color: "white", padding: 8 };
@@ -197,7 +197,7 @@ export default function Lab3() {
   const sumA = A + B;
   const sumB = 3 + 4;
 
-  // Memo to show something computed
+  // Memo 
   const memoExample = useMemo(() => addImplied(10, 5), []);
 
   return (
@@ -337,7 +337,7 @@ obj=${JSON.stringify(obj)}`}
       </Section>
 
       <Section title="1 + 2 displays 3 / 3 + 4 displays 7">
-        <div>1 + 2 = {sumA /* when route /encoded/1/2 */}</div>
+        <div>1 + 2 = {sumA}</div>
         <div>3 + 4 = {sumB}</div>
       </Section>
 
