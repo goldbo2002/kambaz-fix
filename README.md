@@ -1,27 +1,23 @@
 
-# 🔁 Kambaz Dashboard
+# Kambaz Dashboard
 
-An educational web app with user login, dashboard, and six lab assignments.
 
+A canvas mimic
+
+# Tech
+
+front: React, Vite, Redux Toolkit, TypeScript
+back: Node.js, Express, Mongoose
+database: MongoDB Atlas
+authentication: Session-based with express-session
+
+# demo
+
+https://kambaznew.netlify.app/
 ---
 
-## 🛠 Tech Stack
 
-- **Frontend**: React, Vite, Redux Toolkit, TypeScript
-- **Backend**: Node.js, Express, Mongoose
-- **Database**: MongoDB Atlas
-- **Auth**: Session-based with express-session
-
----
-
-## 🚀 Live Demo
-
-[Netlify Link] ()
----
-
-## 💻 Run Locally
-
-### Backend
+# Backend
 
 ```bash
 cd server
@@ -29,7 +25,7 @@ npm install
 node index.js
 ```
 
-### Frontend
+# Frontend
 
 ```bash
 cd client
@@ -37,22 +33,18 @@ npm install
 npm run dev
 ```
 
-Set up the following `.env` files:
 
-**client/.env**
+
+# client and env
 ```
 VITE_API_URL=https://kambaz-fix.onrender.com
 ```
 
-**server/.env**
+# server and env
 ```
 PORT=4000
-MONGODB_URI=your-mongodb-uri
+MONGODB_URI=mongodb+srv://k_user:Poncho@cluster0.d8gziux.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 SESSION_SECRET=your-session-secret
 ```
 
----
-
-## 📝 Notes
-
-- If the Netlify frontend does not fully function, all code is present and deploy-ready.
+https://github.com/goldbo2002/kambaz-fix.git

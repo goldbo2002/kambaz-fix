@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
+
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
@@ -36,6 +37,14 @@ router.post("/signout", (req, res) => {
     res.clearCookie("connect.sid");
     res.json({ message: "Signed out" });
   });
+});
+
+router.get("/me", (req, res) => {
+  if (req.session.user) {
+    res.json(req.session.user);
+  } else {
+    res.status(401).json({ message: "Not logged in" });
+  }
 });
 
 export default router;

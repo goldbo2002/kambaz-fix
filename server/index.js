@@ -12,10 +12,18 @@ import assignmentsRouter from "./routes/assignments.js";
 const app = express();
 app.set("trust proxy", 1);
 
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
 app.use(cors({
-  origin: ["http://localhost:5173"],
+  origin: [
+    "http://localhost:5173",
+    "https://kambaznew.netlify.app"
+  ],
   credentials: true,
 }));
+
 app.use(express.json());
 
 app.use(session({
@@ -29,8 +37,8 @@ app.use(session({
   cookie: {
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
-    sameSite: "none",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
+    sameSite:  process.env.NODE_ENV === "production" ? "none" : "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   },
 }));
 
@@ -41,14 +49,6 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use("/api/users", usersRouter);
 app.use("/api/courses", coursesRouter);
 app.use("/api/assignments", assignmentsRouter);
-
-app.get("/api/users/me", (req, res) => {
-  console.log("SESSION CHECK:", req.session);
-  if (!req.session.user) {
-    return res.status(404).json({ message: "No user session" });
-  }
-  res.json(req.session.user);
-});
 
 app.get("/", (req, res) => res.sendStatus(200));
 
