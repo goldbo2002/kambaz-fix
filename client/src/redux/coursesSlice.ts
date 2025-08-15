@@ -1,25 +1,35 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "../lib/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { api } from '../lib/api';
 
-export const fetchCourses = createAsyncThunk("courses/fetchAll", async () => {
-  const res = await api.get("/courses");
-  return res.data;
-});
-export const createCourse = createAsyncThunk("courses/create", async (data: any) => {
-  const res = await api.post("/courses", data);
-  return res.data;
+const initialState = {
+  list: [],
+  status: 'idle',
+};
+
+export const fetchCourses = createAsyncThunk('courses/fetchCourses', async () => {
+  const response = await api.get('/api/courses');
+  return response.data;
 });
 
+export const createCourse = createAsyncThunk('courses/createCourse', async (data: any) => {
+  const response = await api.post('/api/courses', data);
+  return response.data;
+});
 const coursesSlice = createSlice({
-  name: "courses",
-  initialState: { list: [] as any[], status: "idle" },
-  extraReducers: builder => {
+  name: 'courses',
+  initialState,
+  reducers: {}, // Required for RTK typing
+  extraReducers: (builder) => {
     builder
+      .addCase(fetchCourses.pending, (state) => {
+        state.status = 'loading';
+      })
       .addCase(fetchCourses.fulfilled, (state, action) => {
+        state.status = 'succeeded';
         state.list = action.payload;
       })
-      .addCase(createCourse.fulfilled, (state, action) => {
-        state.list.push(action.payload);
+      .addCase(fetchCourses.rejected, (state) => {
+        state.status = 'failed';
       });
   },
 });

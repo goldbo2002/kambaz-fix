@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { fetchAssignments, createAssignment } from "../redux/assignmentsSlice";
-import { RootState } from "../../client/src/store";
+import { RootState, useAppDispatch } from "../redux/store";
 
 export default function Assignments() {
-  const dispatch = useDispatch();
-  const { list } = useSelector((state: RootState) => state.assignments);
+  const dispatch = useAppDispatch();
+  type Assignment = { _id: string; title: string };
+
+const list = useSelector((state: RootState) => state.assignments.list) as Assignment[];
+
   const [title, setTitle] = useState("");
 
   useEffect(() => {

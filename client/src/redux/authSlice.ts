@@ -1,26 +1,32 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "../lib/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { api } from '../lib/api';
 
-export const signup = createAsyncThunk("auth/signup", async (data: any) => {
-  const res = await api.post("/users/signup", data);
-  return res.data.user;
-});
+const initialState = {
+  user: null,
+  status: 'idle',
+};
 
-export const verifySession = createAsyncThunk("auth/verifySession", async () => {
-  const res = await api.get("/users/me");
-  return res.data;
+export const verifySession = createAsyncThunk('auth/verifySession', async () => {
+  const response = await api.get('/api/users/me');
+  return response.data;
 });
 
 const authSlice = createSlice({
-  name: "auth",
-  initialState: { user: null as any, status: "idle" },
-  extraReducers: builder => {
+  name: 'auth',
+  initialState,
+  reducers: {}, // <- required by RTK
+  extraReducers: (builder) => {
     builder
-      .addCase(signup.fulfilled, (state, action) => {
-        state.user = action.payload;
+      .addCase(verifySession.pending, (state) => {
+        state.status = 'loading';
       })
       .addCase(verifySession.fulfilled, (state, action) => {
+        state.status = 'succeeded';
         state.user = action.payload;
+      })
+      .addCase(verifySession.rejected, (state) => {
+        state.status = 'failed';
+        state.user = null;
       });
   },
 });

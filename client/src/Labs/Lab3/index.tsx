@@ -6,7 +6,9 @@ import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 
 type Todo = { id: number; title: string; done?: boolean };
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+import { PropsWithChildren } from "react";
+
+function Section({ title, children }: PropsWithChildren<{ title: string }>) {
   return (
     <section style={{ marginBottom: 24 }}>
       <h3 style={{ marginBottom: 8 }}>{title}</h3>

@@ -1,35 +1,14 @@
-// src/Labs/Lab5/index.tsx
-import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+// src/Labs/Lab3/index.tsx
+//Bo Gold
 
-const BASE = "http://localhost:4000/api";
+import { useMemo, useState } from "react";
+import { Link, NavLink, useLocation, useParams } from "react-router-dom";
 
-async function getJSON<T = any>(path: string): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-  });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-  return res.json();
-}
-async function sendJSON<T = any>(
-  method: "POST" | "PUT" | "DELETE",
-  path: string,
-  body?: any
-): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
-    method,
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-    body: body !== undefined ? JSON.stringify(body) : undefined,
-  });
-  if (res.status === 204) return {} as T;
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-  const ct = res.headers.get("content-type") || "";
-  return ct.includes("application/json") ? res.json() : ({} as T);
-}
+type Todo = { id: number; title: string; done?: boolean };
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+import { PropsWithChildren } from "react";
+
+function Section({ title, children }: PropsWithChildren<{ title: string }>) {
   return (
     <section style={{ marginBottom: 24 }}>
       <h3 style={{ marginBottom: 8 }}>{title}</h3>
@@ -38,228 +17,338 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-export default function Lab5() {
-  // Path params calculator
-  const [pathAdd, setPathAdd] = useState<string>("");
-  const [pathSub, setPathSub] = useState<string>("");
-  const [pathMul, setPathMul] = useState<string>("");
-  const [pathDiv, setPathDiv] = useState<string>("");
 
-  // Query params calculator
-  const [qAdd, setQAdd] = useState<string>("");
-  const [qSub, setQSub] = useState<string>("");
+// Small child component for “Parameterizing Components”
+function ColorBox({ label, bg }: { label: string; bg: string }) {
+  return (
+    <div style={{ display: "inline-block", marginRight: 8, marginBottom: 8 }}>
+      <div style={{ width: 80, height: 40, background: bg, border: "1px solid #ccc" }} />
+      <div style={{ fontSize: 12, textAlign: "center" }}>{label}</div>
+    </div>
+  );
+}
 
-  const calcPath = async (op: string, a: number, b: number, set: (v: string) => void) => {
-    try {
-      const data = await getJSON<{ result: number }>(`/lab5/calculator/${op}/${a}/${b}`);
-      set(String(data?.result ?? ""));
-    } catch (e: any) {
-      set(`Error: ${e.message}`);
-    }
+// TodoItem / TodoList for the React ToDo
+function TodoItem({
+  todo,
+  onToggle,
+  onDelete,
+}: {
+  todo: Todo;
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+}) {
+  return (
+    <li
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        padding: "6px 8px",
+        borderLeft: "4px solid green",
+        background: "#fff",
+        marginBottom: 6,
+      }}
+    >
+      <input type="checkbox" checked={!!todo.done} onChange={() => onToggle(todo.id)} />
+      <span style={{ textDecoration: todo.done ? "line-through" : "none" }}>{todo.title}</span>
+      <button style={{ marginLeft: "auto" }} onClick={() => onDelete(todo.id)}>
+        Delete
+      </button>
+    </li>
+  );
+}
+
+function TodoList({
+  items,
+  onToggle,
+  onDelete,
+}: {
+  items: Todo[];
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+}) {
+  return (
+    <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+      {items.map((t) => (
+        <TodoItem key={t.id} todo={t} onToggle={onToggle} onDelete={onDelete} />
+      ))}
+    </ul>
+  );
+}
+
+export default function Lab3() {
+  const location = useLocation();
+  const params = useParams<{ a?: string; b?: string }>();
+
+  // ---------- Variables and constants ----------
+  const x = 1;
+  let y = 2;
+  const s: string = "hello";
+  const n: number = 42;
+  const b: boolean = true;
+  const arr = [1, 2, 3];
+  const obj = { name: "Bo", role: "Student" };
+
+  // Boolean vars
+  const isLoggedIn = true;
+  const isAdmin = false;
+
+  // If/else + ternary + conditional output
+  let greet = "Welcome, guest.";
+  if (isLoggedIn) {
+    greet = "Welcome back!";
+  } else {
+    greet = "Please sign in.";
+  }
+  const roleMsg = isAdmin ? "You are an admin." : "You are a regular user.";
+  const showSecret = isAdmin && <div>Secret Panel</div>;
+
+  // Welcome If Else + Please login inline
+  const username = "alice";
+  const welcome = username ? `Welcome ${username}!` : "Welcome!";
+  const inlineLogin = isLoggedIn ? <b>Logged in</b> : <i>Please login</i>;
+
+  // Legacy ES5 function vs ES6 arrow + implied returns
+  function addES5(a: number, b: number) {
+    return a + b;
+  }
+  const addES6 = (a: number, b: number) => {
+    return a + b;
   };
-  const calcQuery = async (op: string, a: number, b: number, set: (v: string) => void) => {
-    try {
-      const data = await getJSON<{ result: number }>(`/lab5/calculator?operation=${op}&a=${a}&b=${b}`);
-      set(String(data?.result ?? ""));
-    } catch (e: any) {
-      set(`Error: ${e.message}`);
-    }
+  const addImplied = (a: number, b: number) => a + b; // implied return
+
+  // Template literals
+  const who = "Bo";
+  const tmpl = `Hi ${who}, ${2 + 3} is five.`;
+
+  // Arrays: push/pop/unshift/shift etc
+  const original = [3, 1, 4];
+  const withPush = [...original];
+  withPush.push(1);
+  const withPop = [...withPush];
+  withPop.pop();
+
+  // index & length
+  const first = original[0];
+  const len = original.length;
+
+  // For loop
+  const forLoopNums: number[] = [];
+  for (let i = 0; i < 3; i++) {
+    forLoopNums.push(i);
+  }
+
+  // Map / Find / FindIndex / Filter
+  const nums = [5, 8, 13, 21];
+  const doubled = nums.map((z) => z * 2);
+  const found = nums.find((z) => z > 10);
+  const foundIdx = nums.findIndex((z) => z === 8);
+  const filtered = nums.filter((z) => z % 2 === 1);
+
+  // JSON
+  const people = [
+    { id: 1, name: "Alice", role: "Student" },
+    { id: 2, name: "Bob", role: "TA" },
+  ];
+  const jsonStr = JSON.stringify(people);
+  const parsed = JSON.parse(jsonStr);
+
+  // ToDo List
+  const [todos, setTodos] = useState<Todo[]>([
+    { id: 1, title: "Read rubric" },
+    { id: 2, title: "Finish Lab 3" },
+  ]);
+  const [newTodo, setNewTodo] = useState("");
+
+  const addTodo = () => {
+    const title = newTodo.trim();
+    if (!title) return;
+    // Spread operator
+    setTodos((prev) => [...prev, { id: Date.now(), title }]);
+    setNewTodo("");
+  };
+  const toggleTodo = (id: number) => {
+    setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+  };
+  const deleteTodo = (id: number) => {
+    setTodos((prev) => prev.filter((t) => t.id !== id));
   };
 
-  // Objects
-  const [assignment, setAssignment] = useState<any>(null);
-  const [assignmentTitle, setAssignmentTitle] = useState<string>("");
-  const [moduleObj, setModuleObj] = useState<any>(null);
-  const [moduleName, setModuleName] = useState<string>("");
-  const [newTitle, setNewTitle] = useState("Updated Assignment Title");
+  // Destructuring function destructuring
+  const user = { id: 99, first: "Bo", last: "Gold", city: "Boston" };
+  const { first: firstName, last: lastName, ...rest } = user;
+  const formatUser = ({ first, last }: { first: string; last: string }) => `${first} ${last}`;
 
-  const loadAssignment       = async () => setAssignment(await getJSON(`/lab5/assignment`).catch((e)=>({error:e.message})));
-  const loadAssignmentTitle  = async () => setAssignmentTitle(await getJSON<{title:string}>(`/lab5/assignment/title`).then(a=>a.title).catch((e)=>`Error: ${e.message}`));
-  const updateAssignmentTitle= async () => {
-    try {
-      const a = await sendJSON("PUT", `/lab5/assignment/title`, { title: newTitle });
-      setAssignment(a);
-    } catch (e:any) {
-      setAssignment({ error: e.message });
-    }
-  };
-  const loadModule           = async () => setModuleObj(await getJSON(`/lab5/module`).catch((e)=>({error:e.message})));
-  const loadModuleName       = async () => setModuleName(await getJSON<{name:string}>(`/lab5/module/name`).then(m=>m.name).catch((e)=>`Error: ${e.message}`));
+  // Working with HTML 
+  const isDanger = true;
+  const isCool = false;
+  const dangerousClass = isDanger ? "danger" : "";
+  const coolClass = isCool ? "blue" : "";
 
-  // Arrays / Todos
-  const [todos, setTodos] = useState<any[]>([]);
-  const [selectedTodo, setSelectedTodo] = useState<any>(null);
-  const [completedTodos, setCompletedTodos] = useState<any[]>([]);
-  const [todoTitle, setTodoTitle] = useState("New Todo");
-  const [updateTitle, setUpdateTitle] = useState("NodeJS Assignment");
-  const [serverMsg, setServerMsg] = useState<string>("");
+  // Style attribute
+  const yellowStyle = { background: "yellow", padding: 8 };
+  const redStyle = { background: "red", color: "white", padding: 8 };
+  const blueStyle = { background: "blue", color: "white", padding: 8 };
 
-  const loadTodos = async () => {
-    try {
-      setTodos(await getJSON<any[]>(`/lab5/todos`));
-      setServerMsg("");
-    } catch (e:any) { setServerMsg(`Error: ${e.message}`); }
-  };
-  const getTodoById = async (id: number) => {
-    try {
-      setSelectedTodo(await getJSON<any>(`/lab5/todos/${id}`));
-      setServerMsg("");
-    } catch (e:any) { setServerMsg(`Error: ${e.message}`); }
-  };
-  const getCompleted = async () => {
-    try {
-      setCompletedTodos(await getJSON<any[]>(`/lab5/todos?completed=true`));
-      setServerMsg("");
-    } catch (e:any) { setServerMsg(`Error: ${e.message}`); }
-  };
-  const createTodo = async () => {
-    try {
-      await sendJSON("POST", `/lab5/todos`, { title: todoTitle });
-      await loadTodos();
-      setServerMsg("POST ok");
-    } catch (e:any) { setServerMsg(`POST failed: ${e.message}`); }
-  };
-  const deleteTodo = async (id: number) => {
-    try {
-      await sendJSON("DELETE", `/lab5/todos/${id}`);
-      await loadTodos();
-      setServerMsg("DELETE ok");
-    } catch (e:any) { setServerMsg(`DELETE failed: ${e.message}`); }
-  };
-  const updateTodo = async (id: number) => {
-    try {
-      await sendJSON("PUT", `/lab5/todos/${id}`, { title: updateTitle });
-      await loadTodos();
-      setServerMsg("PUT ok");
-    } catch (e:any) { setServerMsg(`PUT failed: ${e.message}`); }
-  };
+  // Location
+  const currentPath = location.pathname;
+  const A = Number(params.a ?? 1);
+  const B = Number(params.b ?? 2);
+  const sumA = A + B;
+  const sumB = 3 + 4;
 
-  // Async welcome
-  const [welcome, setWelcome] = useState<string>("");
-  const fetchWelcome = async () => {
-    try {
-      const data = await getJSON<{ message?: string; welcome?: string }>(`/lab5/welcome`);
-      setWelcome(data?.message ?? data?.welcome ?? JSON.stringify(data));
-    } catch (e:any) { setWelcome(`Error: ${e.message}`); }
-  };
-
-  useEffect(() => {
-    calcPath("add", 34, 23, setPathAdd);
-    calcPath("subtract", 34, 23, setPathSub);
-    calcPath("multiply", 7, 6, setPathMul);
-    calcPath("divide", 84, 7, setPathDiv);
-    calcQuery("add", 34, 23, setQAdd);
-    calcQuery("subtract", 34, 23, setQSub);
-    loadAssignment();
-    loadAssignmentTitle();
-    loadModule();
-    loadModuleName();
-    loadTodos();
-    getCompleted();
-    fetchWelcome();
-  }, []);
-
-  const firstTodoId = useMemo(() => (todos.length ? todos[0].id : null), [todos]);
+  // Memo to show something computed
+  const memoExample = useMemo(() => addImplied(10, 5), []);
 
   return (
-    <div id="wd-lab5" style={{ maxWidth: 980, margin: "24px auto", lineHeight: 1.5 }}>
-      <h2>Lab 5</h2>
+    <div id="wd-lab3" style={{ maxWidth: 900, margin: "24px auto", lineHeight: 1.5 }}>
+      <h2>Lab 3</h2>
       <div style={{ marginBottom: 12 }}>
-        <Link to="/Labs/Lab3">Lab 3</Link> {" | "}
-        <Link to="/Labs/Lab4">Lab 4</Link> {" | "}
+        <Link to="/Labs/Lab1">Lab 1</Link> {" | "}
+        <Link to="/Labs/Lab2">Lab 2</Link> {" | "}
         <Link to="/Kambaz">Kanbas</Link>
       </div>
 
-      <Section title="Path Parameters — Add 34 + 23">
-        <div>Result: {pathAdd || "-"}</div>
-      </Section>
-      <Section title="Path Parameters — Subtract 34 - 23">
-        <div>Result: {pathSub || "-"}</div>
-      </Section>
-      <Section title="Path Parameters — multiply / divide">
-        <div>multiply 7×6 = {pathMul || "-"}</div>
-        <div>divide 84÷7 = {pathDiv || "-"}</div>
+      <Section title="Variables and constants (approximate display)">
+  <pre style={{ background: "#f7f7f7", padding: 12, overflow: "auto" }}>
+    {`x=${x}
+y=${y}
+s="${s}"
+n=${n}
+b=${b}
+arr=[${arr.join(", ")}]
+obj=${JSON.stringify(obj)}`}
+  </pre>
+  <div>Memo example (10 + 5): {memoExample}</div>
+</Section>
+
+      <Section title="Variable types / Boolean variables">
+        <div>string: "{s}", number: {n}, boolean: {String(b)}</div>
+        <div>isLoggedIn: {String(isLoggedIn)}, isAdmin: {String(isAdmin)}</div>
       </Section>
 
-      <Section title="Query Parameters — Add 34 + 23 / Subtract 34 - 23">
-        <div>add: {qAdd || "-"}</div>
-        <div>subtract: {qSub || "-"}</div>
+      <Section title="If/Else / Ternary / Conditional output">
+        <div>{greet}</div>
+        <div>{roleMsg}</div>
+        <div>{showSecret}</div>
       </Section>
 
-      <Section title="Working with Objects — Assignment / Title">
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
-          <button onClick={loadAssignment}>Get Assignment</button>
-          <button onClick={loadAssignmentTitle}>Get Title</button>
-          <input
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            style={{ width: 260 }}
-            placeholder="New title"
-          />
-          <button onClick={updateAssignmentTitle}>Update Title</button>
-        </div>
-        <div><b>Assignment:</b> <code>{JSON.stringify(assignment)}</code></div>
-        <div><b>Title:</b> {assignmentTitle || "-"}</div>
+      <Section title="Welcome If Else / Please login Inline">
+        <div>{welcome}</div>
+        <div>{inlineLogin}</div>
       </Section>
 
-      <Section title="Working with Objects — Module / Module Name">
+      <Section title="Legacy ES5 vs ES6 Arrow vs Implied returns">
+        <div>addES5(1,2) = {addES5(1, 2)}</div>
+        <div>addES6(3,4) = {addES6(3, 4)}</div>
+        <div>addImplied(5,6) = {addImplied(5, 6)}</div>
+      </Section>
+
+      <Section title="Template Literals">
+        <code>{tmpl}</code>
+      </Section>
+
+      <Section title="Working with Arrays / Index & Length / Add & Remove">
+        <div>original = [{original.join(", ")}]</div>
+        <div>withPush (after push 1) = [{withPush.join(", ")}]</div>
+        <div>withPop (after pop) = [{withPop.join(", ")}]</div>
+        <div>first = {first}, length = {len}</div>
+      </Section>
+
+      <Section title="For Loops">
+        <div>[{forLoopNums.join(", ")}]</div>
+      </Section>
+
+      <Section title="Map / Find / FindIndex / Filter">
+        <div>nums = [{nums.join(", ")}]</div>
+        <div>map *2 = [{doubled.join(", ")}]</div>
+        <div>find &gt; 10 = {String(found)}</div>
+        <div>findIndex == 8 = {foundIdx}</div>
+        <div>filter odd = [{filtered.join(", ")}]</div>
+      </Section>
+
+      <Section title="JSON">
+        <div>stringify = {jsonStr}</div>
+        <div>parse[0].name = {parsed[0].name}</div>
+      </Section>
+
+      <Section title="Implementing a simple ToDo List using React.js">
         <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-          <button onClick={loadModule}>Get Module</button>
-          <button onClick={loadModuleName}>Get Module Name</button>
+          <input
+            placeholder="New todo"
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+          />
+          <button onClick={addTodo}>Add</button>
         </div>
-        <div><b>Module:</b> <code>{JSON.stringify(moduleObj)}</code></div>
-        <div><b>Name:</b> {moduleName || "-"}</div>
+        <TodoList items={todos} onToggle={toggleTodo} onDelete={deleteTodo} />
       </Section>
 
-      <Section title="Working with Arrays — Todos">
-        <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-          <button onClick={loadTodos}>Get Todos</button>
-          <button onClick={() => firstTodoId && getTodoById(firstTodoId)}>Get Todo By Id (first)</button>
-          <button onClick={getCompleted}>Get Completed Todos</button>
+      <Section title="The Spread Operator / Destructuring / Function Destructuring">
+        <div>user = {JSON.stringify(user)}</div>
+        <div>firstName = {firstName}, lastName = {lastName}</div>
+        <div>rest = {JSON.stringify(rest)}</div>
+        <div>formatUser(user) = {formatUser(user)}</div>
+      </Section>
+
+      <Section title="Working with HTML classes (danger/red, blue) + dynamic">
+        <div className={`box ${dangerousClass}`} style={{ padding: 8, marginBottom: 6 }}>
+          Red Dangerous background (when danger=true)
         </div>
+        <div className={`box ${coolClass}`} style={{ padding: 8 }}>
+          Dynamic blue background (when cool=true)
+        </div>
+      </Section>
+
+      <Section title="Style attribute (yellow, red, blue)">
+        <div style={yellowStyle}>Yellow background (inline style)</div>
+        <div style={redStyle}>Red background (inline style)</div>
+        <div style={blueStyle}>Blue background (inline style)</div>
+      </Section>
+
+      <Section title="Parameterizing Components / Child Components">
+        <ColorBox label="Sun" bg="yellow" />
+        <ColorBox label="Stop" bg="red" />
+        <ColorBox label="Sky" bg="blue" />
+      </Section>
+
+      <Section title="Working with Location / Navigation highlights current page">
+        <div>Current path: <code>{currentPath}</code></div>
+        <nav style={{ display: "flex", gap: 8, marginTop: 8 }}>
+          <NavLink
+            to="/Labs/Lab3"
+            className={({ isActive }) => (isActive ? "activeLink" : "")}
+          >
+            Lab 3 Home
+          </NavLink>
+          <NavLink
+            to="/Labs/Lab3/encoded/1/2"
+            className={({ isActive }) => (isActive ? "activeLink" : "")}
+          >
+            Encoded 1/2
+          </NavLink>
+        </nav>
         <div style={{ marginTop: 8 }}>
-          <b>Todos:</b>
-          <pre style={{ background: "#f7f7f7", padding: 8, overflow: "auto" }}>
-{JSON.stringify(todos, null, 2)}
-          </pre>
-        </div>
-        <div><b>Selected Todo:</b> <code>{JSON.stringify(selectedTodo)}</code></div>
-        <div><b>Completed:</b> <code>{JSON.stringify(completedTodos)}</code></div>
-      </Section>
-
-      <Section title="POST / DELETE / PUT + Error">
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
-          <input
-            value={todoTitle}
-            onChange={(e) => setTodoTitle(e.target.value)}
-            placeholder="New todo title"
-            style={{ width: 220 }}
-          />
-          <button onClick={createTodo}>POST — Create</button>
-
-          <button onClick={() => firstTodoId && deleteTodo(firstTodoId)}>DELETE — First</button>
-
-          <input
-            value={updateTitle}
-            onChange={(e) => setUpdateTitle(e.target.value)}
-            placeholder="Update title"
-            style={{ width: 220 }}
-          />
-          <button onClick={() => firstTodoId && updateTodo(firstTodoId)}>PUT — First</button>
-
-          <button onClick={() => deleteTodo(1234)}>Error Demo — Delete ID 1234</button>
-        </div>
-        <div style={{ color: serverMsg.startsWith("Error") ? "#b00020" : "#0b6b0b" }}>
-          {serverMsg || "—"}
+          <div>Encoding Path Parameters:</div>
+          <div>
+            a = {String(A)} , b = {String(B)}
+          </div>
         </div>
       </Section>
 
-      <Section title="Async — Fetching Welcome">
-        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <button onClick={fetchWelcome}>Fetch Welcome</button>
-          <div><b>Welcome: </b>{welcome || "-"}</div>
-        </div>
+      <Section title="1 + 2 displays 3 / 3 + 4 displays 7">
+        <div>1 + 2 = {sumA /* when route /encoded/1/2 */}</div>
+        <div>3 + 4 = {sumB}</div>
       </Section>
+
+      {/* LITTLE STYLE */}
+      <style>{`
+        .danger { background: #c1121f; color: #fff; }
+        .blue { background: #0d6efd; color: #fff; }
+        .activeLink { font-weight: bold; border-left: 4px solid black; padding-left: 6px; }
+        .box { border-radius: 6px; }
+      `}</style>
     </div>
   );
 }

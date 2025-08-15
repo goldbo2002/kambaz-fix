@@ -1,25 +1,34 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "../lib/api";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { api } from '../lib/api';
 
-export const fetchAssignments = createAsyncThunk("assignments/fetchAll", async () => {
-  const res = await api.get("/assignments");
-  return res.data;
-});
-export const createAssignment = createAsyncThunk("assignments/create", async (data: any) => {
-  const res = await api.post("/assignments", data);
-  return res.data;
-});
+const initialState = {
+  list: [],
+  status: 'idle',
+};
 
+export const fetchAssignments = createAsyncThunk('assignments/fetchAssignments', async () => {
+  const response = await api.get('/api/assignments');
+  return response.data;
+});
+export const createAssignment = createAsyncThunk('assignments/createAssignment', async (data: any) => {
+  const response = await api.post('/api/assignments', data);
+  return response.data;
+});
 const assignmentsSlice = createSlice({
-  name: "assignments",
-  initialState: { list: [] as any[], status: "idle" },
-  extraReducers: builder => {
+  name: 'assignments',
+  initialState,
+  reducers: {}, // <- required by RTK
+  extraReducers: (builder) => {
     builder
+      .addCase(fetchAssignments.pending, (state) => {
+        state.status = 'loading';
+      })
       .addCase(fetchAssignments.fulfilled, (state, action) => {
+        state.status = 'succeeded';
         state.list = action.payload;
       })
-      .addCase(createAssignment.fulfilled, (state, action) => {
-        state.list.push(action.payload);
+      .addCase(fetchAssignments.rejected, (state) => {
+        state.status = 'failed';
       });
   },
 });

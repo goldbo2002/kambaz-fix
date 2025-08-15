@@ -1,0 +1,22 @@
+
+node_modules/
+
+
+dist/
+.vite/
+
+
+*.log
+
+# Env 
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+*.swp
+
+# System 
+.DS_Store
+Thumbs.db

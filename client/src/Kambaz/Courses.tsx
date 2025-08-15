@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { fetchCourses, createCourse } from "../redux/coursesSlice";
-import { RootState } from "../../client/src/store";
+import { RootState, useAppDispatch } from "../redux/store";
 
 export default function Courses() {
-  const dispatch = useDispatch();
-  const { list } = useSelector((state: RootState) => state.courses);
+  const dispatch = useAppDispatch();
+ type Course = { _id: string; title: string };
+
+const list = useSelector((state: RootState) => state.courses.list) as Course[];
+
   const [title, setTitle] = useState("");
 
   useEffect(() => {
