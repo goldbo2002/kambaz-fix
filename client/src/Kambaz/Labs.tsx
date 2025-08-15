@@ -16,8 +16,8 @@ export default function Labs() {
         <Link to="Lab2">Lab 2</Link>{" "}
         <Link to="Lab3">Lab 3</Link>{" "}
         <Link to="Lab4">Lab 4</Link>{" "}
-        <Link to="Lab5">lab 5 </Link>{""}
-        <Link to="Lab6">lab 6 </Link>
+        <Link to="Lab5">Lab 5</Link>{" "}
+        <Link to="Lab6">Lab 6</Link>
       </nav>
       <Routes>
         <Route path="Lab1" element={<Lab1 />} />
