@@ -17,13 +17,3 @@ function App() {
   );
 }
 
-export default function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/labs/*" element={<Labs />} />
-      <Route path="/courses" element={<Courses />} />
-      <Route path="/assignments" element={<Assignments />} />
-    </Routes>
-  );
-}
