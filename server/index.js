@@ -10,7 +10,7 @@ import coursesRouter from "./routes/courses.js";
 import assignmentsRouter from "./routes/assignments.js";
 
 const app = express();
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 
 if (process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1);
@@ -29,7 +29,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-
 app.use(session({
   secret: process.env.SESSION_SECRET || "keyboard cat",
   resave: true,
@@ -39,12 +38,13 @@ app.use(session({
     collectionName: "sessions",
   }),
   cookie: {
-    secure: process.env.NODE_ENV === "production",
+    secure: true,              // only over HTTPS
+    sameSite: "none",          // allow cross-site
     httpOnly: true,
-    sameSite:  process.env.NODE_ENV === "production" ? "none" : "lax",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   },
 }));
+
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("✅ MongoDB connected"))
