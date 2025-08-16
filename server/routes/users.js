@@ -38,13 +38,19 @@ router.post("/signout", (req, res) => {
     res.json({ message: "Signed out" });
   });
 });
+router.get("/ping", (req, res) => {
+  console.log("👋 /ping route hit");
+  res.send("pong");
+});
 
 router.get("/me", (req, res) => {
-  if (req.session.user) {
-    res.json(req.session.user);
-  } else {
-    res.status(401).json({ message: "Not logged in" });
+  console.log("🔎 Session:", req.session);
+  if (!req.session || !req.session.user) {
+    return res.status(401).send("Unauthorized");
   }
+  res.json(req.session.user);
 });
+
+
 
 export default router;
