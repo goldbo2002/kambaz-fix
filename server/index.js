@@ -10,7 +10,7 @@ import coursesRouter from "./routes/courses.js";
 import assignmentsRouter from "./routes/assignments.js";
 
 const app = express();
-app.set("trust proxy", 1);
+app.set("trust proxy", true);
 
 if (process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1);
@@ -23,6 +23,10 @@ app.use(cors({
   ],
   credentials: true,
 }));
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 app.use(express.json());
 
