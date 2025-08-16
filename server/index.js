@@ -10,6 +10,11 @@ import coursesRouter from "./routes/courses.js";
 import assignmentsRouter from "./routes/assignments.js";
 
 const app = express();
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch(err => console.error("❌ MongoDB error", err));
+
 app.set("trust proxy", 1);
 
 if (process.env.NODE_ENV === 'production') {
@@ -44,11 +49,6 @@ app.use(session({
     maxAge: 7 * 24 * 60 * 60 * 1000,
   },
 }));
-
-
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.error("❌ MongoDB error", err));
 
 app.use("/api/users", usersRouter);
 app.use("/api/courses", coursesRouter);
