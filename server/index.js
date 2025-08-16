@@ -32,7 +32,7 @@ app.use(express.json());
 
 app.use(session({
   secret: process.env.SESSION_SECRET || "keyboard cat",
-  resave: false,
+  resave: true,
   saveUninitialized: false,
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
