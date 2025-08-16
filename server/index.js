@@ -28,10 +28,7 @@ app.use(cors({
   ],
   credentials: true,
 }));
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  next();
-});
+
 app.use(session({
   secret: process.env.SESSION_SECRET || "keyboard cat",
   resave: true,
