@@ -16,6 +16,13 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error("❌ MongoDB error", err));
 
 app.set("trust proxy", 1);
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; connect-src 'self' https://kambaz-fix.onrender.com"
+  );
+  next();
+});
 
 if (process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1);
