@@ -41,14 +41,18 @@ app.use(session({
   store: MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
     collectionName: "sessions",
+    stringify: false,
+    autoRemove: 'interval',
+    autoRemoveInterval: 10
   }),
   cookie: {
-    secure: true,              // only over HTTPS
-    sameSite: "none",          // allow cross-site
+    secure: true,
     httpOnly: true,
+    sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   },
 }));
+
 
 app.use("/api/users", usersRouter);
 app.use("/api/courses", coursesRouter);
